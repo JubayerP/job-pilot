@@ -14,6 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useChangeBg } from '../../../hooks/useChangeNavbg';
 import useNavbg from '../../../hooks/useNavbg';
 
 const drawerWidth = 240;
@@ -24,6 +25,7 @@ function Navbar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [active] = useNavbg();
+  const [color] = useChangeBg();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -51,12 +53,11 @@ function Navbar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
       <CssBaseline />
       <AppBar component="nav"
         sx={{
-          background: 
-            active ? '#333' : 'transparent',
+          background: active ? 'black' : `${color}`,
           // background: 'transparent',
           boxShadow: 'none',
           height: '80px',

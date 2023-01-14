@@ -18,7 +18,7 @@ const Header = () => {
                     left: 0,
                     top: 0,
                     width: '100%',
-                    height: '100vh',
+                    height: '94.5vh',
                     display: 'inline-block',
                     background: 'linear-gradient(90deg, #151515 0%, rgba(60,60,60,0.2) 100% )',
                     // zIndex: 1

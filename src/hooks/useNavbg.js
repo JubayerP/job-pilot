@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 const useNavbg = () => {
     const [active, setActive] = useState(false);
 
+
     useEffect(() => {
         function handleScroll() {
-            if (window.scrollY > 100) {
+            if (window.scrollY > 80) {
                 setActive(true);
             } else {
                 setActive(false);
@@ -22,5 +23,8 @@ const useNavbg = () => {
 
     return [active]
 };
+
+
+
 
 export default useNavbg;

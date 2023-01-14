@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Category = () => {
     const { data: categories = [] } = useQuery({
@@ -14,7 +15,7 @@ const Category = () => {
     })
     console.log(categories);
     return (
-        <Box sx={{my: '80px', px: '80px'}}>
+        <Box sx={{ my: '80px', px: '80px' }}>
             <Typography variant='h4' sx={{ color: '#333', textAlign: 'center', mb: '20px' }}>
                 Popular Category
             </Typography>
@@ -38,12 +39,17 @@ const Category = () => {
                             '&:hover': {
                                 bgcolor: '#03A84E',
                             },
-                            '&:hover > h6': {
-                                color: 'white'
-                            }
                         }}
                     >
-                        <Typography variant='h6' sx={{textAlign: 'center'}}>{c.category_name}</Typography>
+                        <Link to={`/jobs/${c.category}`} style={{
+                            textDecoration: 'none', color: 'black'
+                        }}>
+                            <Typography variant='h6' sx={{
+                                textAlign: 'center', '&:hover': {
+                                    color: 'white'
+                                }
+                            }}>{c.category_name}</Typography>
+                        </Link>
                     </Box>)
                 }
             </Box>
