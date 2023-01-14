@@ -13,9 +13,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Home', 'Find Jobs', 'Employers Details', 'Contact'];
 
 function Navbar(props) {
   const { window } = props;
@@ -28,7 +29,7 @@ function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        Job Pilot
       </Typography>
       <Divider />
       <List>
@@ -39,6 +40,7 @@ function Navbar(props) {
             </ListItemButton>
           </ListItem>
         ))}
+        <Button variant="contained">Register</Button>
       </List>
     </Box>
   );
@@ -46,14 +48,15 @@ function Navbar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <CssBaseline />
           <AppBar component="nav"
               sx={{
                   background: 'transparent',
                   boxShadow: 'none',
                   height: '80px',
-                  zIndex: 10
+                // zIndex: 2,
+                borderBottom: '1px solid #ddd'
             }}
           >
         <Toolbar>
@@ -62,23 +65,44 @@ function Navbar(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md:'none' } }}
           >
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
+            variant="h5"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'block' } }}
           >
             Job Pilot
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'none',md: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff'}} disableRipple variant='text'>
+                <Button key={item} sx={{
+                    color: '#fff', mr: 2,
+                    textTransform: 'capitalize',
+                    "&:hover": {
+                        color: '#03A84E'
+                    }
+                
+                }} disableRipple variant='text'>
                 {item}
               </Button>
             ))}
+            <Button
+              disableRipple
+              variant="contained"
+              sx={{
+                bgcolor: '#03A84E',
+                '&:hover': {
+                  bgcolor: '#03A84E',
+                  boxShadow: 'none'
+                },
+                boxShadow: 'none',
+                px: 3,
+                py:'.8rem'
+              }}
+            ><AddIcon sx={{fontSize: '20px'}}/> Register</Button>
           </Box>
         </Toolbar>
       </AppBar>
@@ -92,7 +116,7 @@ function Navbar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
