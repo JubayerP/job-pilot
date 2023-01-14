@@ -1,6 +1,8 @@
-import * as React from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -9,11 +11,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
+import * as React from 'react';
+import useNavbg from '../../../hooks/useNavbg';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'Find Jobs', 'Employers Details', 'Contact'];
@@ -21,6 +22,8 @@ const navItems = ['Home', 'Find Jobs', 'Employers Details', 'Contact'];
 function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [active] = useNavbg();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -50,22 +53,24 @@ function Navbar(props) {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <CssBaseline />
-          <AppBar component="nav"
-              sx={{
-                  background: 'transparent',
-                  boxShadow: 'none',
-                  height: '80px',
-                // zIndex: 2,
-                borderBottom: '1px solid #ddd'
-            }}
-          >
+      <AppBar component="nav"
+        sx={{
+          background: 
+            active ? '#333' : 'transparent',
+          // background: 'transparent',
+          boxShadow: 'none',
+          height: '80px',
+          // zIndex: 2,
+          borderBottom: '1px solid #ddd'
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md:'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -76,16 +81,16 @@ function Navbar(props) {
           >
             Job Pilot
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'none',md: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
             {navItems.map((item) => (
-                <Button key={item} sx={{
-                    color: '#fff', mr: 2,
-                    textTransform: 'capitalize',
-                    "&:hover": {
-                        color: '#03A84E'
-                    }
-                
-                }} disableRipple variant='text'>
+              <Button key={item} sx={{
+                color: '#fff', mr: 2,
+                textTransform: 'capitalize',
+                "&:hover": {
+                  color: '#03A84E'
+                }
+
+              }} disableRipple variant='text'>
                 {item}
               </Button>
             ))}
@@ -100,9 +105,9 @@ function Navbar(props) {
                 },
                 boxShadow: 'none',
                 px: 3,
-                py:'.8rem'
+                py: '.8rem'
               }}
-            ><AddIcon sx={{fontSize: '20px'}}/> Register</Button>
+            ><AddIcon sx={{ fontSize: '20px' }} /> Register</Button>
           </Box>
         </Toolbar>
       </AppBar>
