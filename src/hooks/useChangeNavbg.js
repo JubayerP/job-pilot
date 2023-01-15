@@ -17,6 +17,12 @@ export const useChangeBg = () => {
         else if (location.pathname === '/jobs/datascience') {
             setColor('black');
         }
+        else if (location.pathname === '/register') {
+            setColor('black');
+        }
+        else if (location.pathname === '/login') {
+            setColor('black');
+        }
         else {
             setColor('transparent');
         }

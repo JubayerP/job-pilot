@@ -59,11 +59,14 @@ export const JobCard = ({ job }) => {
                 <Button variant='contained' disableRipple sx={{
                     background: '#03A84E',
                     '&:hover': {
-                        background: '#03A84E',
-                        boxShadow: 'none'
+                        background: 'white',
+                        boxShadow: 'none',
+                        border: '1px solid #03A84E',
+                        color: '#03A84E'
                     },
                     boxShadow: 'none',
-                    px: 4
+                    px: 4,
+                    border: '1px solid #03A84E',
 
                 }}>Details</Button>
             </CardActions>

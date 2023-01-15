@@ -14,6 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { useChangeBg } from '../../../hooks/useChangeNavbg';
 import useNavbg from '../../../hooks/useNavbg';
 
@@ -95,20 +96,22 @@ function Navbar(props) {
                 {item}
               </Button>
             ))}
-            <Button
-              disableRipple
-              variant="contained"
-              sx={{
-                bgcolor: '#03A84E',
-                '&:hover': {
+            <Link to='/register' style={{textDecoration: 'none'}}>
+              <Button
+                disableRipple
+                variant="contained"
+                sx={{
                   bgcolor: '#03A84E',
-                  boxShadow: 'none'
-                },
-                boxShadow: 'none',
-                px: 3,
-                py: '.8rem'
-              }}
-            ><AddIcon sx={{ fontSize: '20px' }} /> Register</Button>
+                  '&:hover': {
+                    bgcolor: '#03A84E',
+                    boxShadow: 'none'
+                  },
+                  boxShadow: 'none',
+                  px: 3,
+                  py: '.8rem'
+                }}
+              ><AddIcon sx={{ fontSize: '20px' }} /> Register</Button>
+            </Link>
           </Box>
         </Toolbar>
       </AppBar>
