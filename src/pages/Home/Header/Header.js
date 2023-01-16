@@ -27,11 +27,11 @@ const Header = () => {
         >
             <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', zIndex: 20, position: 'relative'}}>
                 <Typography
-                    variant='h2'
                     sx={{
                         color: 'white',
-                        fontWeight: '500',
-                        textAlign: 'center'
+                        fontWeight: '600',
+                        textAlign: 'center',
+                        fontSize: ['30px', '35px', '55px']
                     }}
                 >
                     Unlock Your <br /> Potential with the <span style={{color: '#03A84E'}}>Right Job.</span>

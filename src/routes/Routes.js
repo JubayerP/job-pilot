@@ -3,6 +3,7 @@ import Main from "../layouts/Main";
 import Home from "../pages/Home/Home/Home";
 import Jobs from "../pages/Jobs/Jobs";
 import Login from "../pages/Login/Login";
+import { Profile } from "../pages/Profile/Profile";
 import Register from "../pages/Register/Register";
 
 
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login />
+            },
+            {
+                path: '/profile',
+                element: <Profile />
             }
         ]
     }

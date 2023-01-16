@@ -15,15 +15,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
 import { useChangeBg } from '../../../hooks/useChangeNavbg';
 import useNavbg from '../../../hooks/useNavbg';
+import NavMenu from './NavMenu';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'Find Jobs', 'Employers Details', 'Contact'];
 
-function Navbar(props) {
+const Navbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { user } = React.useContext(AuthContext);
 
   const [active] = useNavbg();
   const [color] = useChangeBg();
@@ -79,11 +82,13 @@ function Navbar(props) {
           <Typography
             variant="h5"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'none', md: 'block' }, }}
           >
-            Job Pilot
+            <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+              Job Pilot
+            </Link>
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{
                 color: '#fff', mr: 2,
@@ -96,22 +101,26 @@ function Navbar(props) {
                 {item}
               </Button>
             ))}
-            <Link to='/register' style={{textDecoration: 'none'}}>
-              <Button
-                disableRipple
-                variant="contained"
-                sx={{
-                  bgcolor: '#03A84E',
-                  '&:hover': {
+            {user?.uid ? <NavMenu />
+              :
+              <Link to='/register' style={{ textDecoration: 'none' }}>
+
+                <Button
+                  disableRipple
+                  variant="contained"
+                  sx={{
                     bgcolor: '#03A84E',
-                    boxShadow: 'none'
-                  },
-                  boxShadow: 'none',
-                  px: 3,
-                  py: '.8rem'
-                }}
-              ><AddIcon sx={{ fontSize: '20px' }} /> Register</Button>
-            </Link>
+                    '&:hover': {
+                      bgcolor: '#03A84E',
+                      boxShadow: 'none'
+                    },
+                    boxShadow: 'none',
+                    px: 3,
+                    py: '.8rem'
+                  }}
+                ><AddIcon sx={{ fontSize: '20px' }} /> Register</Button>
+              </Link>
+            }
           </Box>
         </Toolbar>
       </AppBar>
