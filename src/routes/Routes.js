@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayouts from "../layouts/DashboardLayouts";
 import Main from "../layouts/Main";
+import ListJob from "../pages/Dashboard/ListJob";
 import Home from "../pages/Home/Home/Home";
 import Jobs from "../pages/Jobs/Jobs";
 import Login from "../pages/Login/Login";
@@ -19,7 +21,7 @@ export const router = createBrowserRouter([
             {
                 path: '/jobs/:category',
                 element: <Jobs />,
-                loader: ({params}) => fetch(`http://localhost:5000/joblistings?category=${params.category}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/joblistings?category=${params.category}`)
             },
             {
                 path: '/register',
@@ -32,6 +34,16 @@ export const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <Profile />
+            }
+        ]
+    },
+    {
+        path: '/dashboard/listjob',
+        element: <DashboardLayouts />,
+        children: [
+            {
+                path: '/dashboard/listjob',
+                element: <ListJob />
             }
         ]
     }

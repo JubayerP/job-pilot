@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
@@ -21,7 +20,12 @@ import useNavbg from '../../../hooks/useNavbg';
 import NavMenu from './NavMenu';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'Find Jobs', 'Employers Details', 'Contact'];
+const navItems = [
+  {
+    name: 'Dashboard',
+    link: '/dashboard/listjob'
+  }
+];
 
 const Navbar = (props) => {
   const { window } = props;
@@ -45,7 +49,7 @@ const Navbar = (props) => {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <Link to='/dashboard'>{item.name}</Link>
             </ListItemButton>
           </ListItem>
         ))}
@@ -98,7 +102,9 @@ const Navbar = (props) => {
                 }
 
               }} disableRipple variant='text'>
-                {item}
+                <Link to={item.link}>
+                  {item.name}
+                </Link>
               </Button>
             ))}
             {user?.uid ? <NavMenu />

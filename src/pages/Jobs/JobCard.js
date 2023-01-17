@@ -44,7 +44,7 @@ export const JobCard = ({ job }) => {
                 sx={{ '&.MuiCardContent-root': { p: 0 } }}
             >
                 <Typography gutterBottom variant="h5" component="div" sx={{fontWeight: '600'}}>
-                    {job_title.split(' ').slice(0, 2).join(' ')}
+                    {job_title}
                 </Typography>
                 <Typography variant='p' sx={{
                     fontWeight: '600',

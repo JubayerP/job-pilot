@@ -1,16 +1,18 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useQuery } from "@tanstack/react-query";
-// import {makeStyles} from '@mui/material/styles'
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthProvider";
+import { useEmployer } from "../../hooks/useEmployer";
 import { useJobSeeker } from "../../hooks/useJobSeeker";
+
 
 
 export const Profile = () => {
     const { user } = useContext(AuthContext)
     const [isJobSeeker] = useJobSeeker(user?.email);
+    const [isEmployer] = useEmployer(user?.email)
     const { register, handleSubmit } = useForm()
 
     const { data: currentUser, isLoading } = useQuery({
@@ -40,7 +42,7 @@ export const Profile = () => {
 
                     const updateUser = { ...newUser, resume, passion: data.passion, address: data.address }
                     console.log(updateUser);
-                    
+
                     fetch(`http://localhost:5000/user?email=${user?.email}`, {
                         method: 'PUT',
                         headers: {
@@ -50,9 +52,9 @@ export const Profile = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                        console.log(data)
-                    })
-            })
+                            console.log(data)
+                        })
+                })
         }
     }
 
@@ -121,35 +123,41 @@ export const Profile = () => {
                             }
                         </Box>
                     </Box>
-                    <Box>
-                        <label htmlFor="fileInput" style={{ fontSize: '13px' }}>Passion</label>
-                        <TextField
-                            {...register('passion', { required: true })}
-                            id="fileInput"
-                            placeholder="Your Passion e.g. Web Developer"
-                            sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
-                        />
-                    </Box>
-                    <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', gap: '1rem' }}>
-                        <Box sx={{ width: '100%' }}>
-                            <label htmlFor="fileInput" style={{ fontSize: '13px' }}>Address</label>
-                            <TextField
-                                {...register('address', { required: true })}
-                                id="fileInput"
-                                placeholder="Your Address"
-                                sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
-                            />
-                        </Box>
-                        <Box sx={{ width: '100%' }}>
-                            <label htmlFor="fileInput" style={{ fontSize: '13px' }}>Upload Your Resume</label>
-                            <TextField
-                                {...register('photo', { required: true })}
-                                id="fileInput"
-                                type='file'
-                                sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
-                            />
-                        </Box>
-                    </Box>
+                    <>
+                        {isJobSeeker &&
+                            <>
+                                <Box>
+                                    <label htmlFor="fileInput" style={{ fontSize: '13px' }}>Passion</label>
+                                    <TextField
+                                        {...register('passion', { required: true })}
+                                        id="fileInput"
+                                        placeholder="Your Passion e.g. Web Developer"
+                                        sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                    />
+                                </Box>
+                                <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', gap: '1rem' }}>
+                                    <Box sx={{ width: '100%' }}>
+                                        <label htmlFor="fileInput" style={{ fontSize: '13px' }}>Address</label>
+                                        <TextField
+                                            {...register('address', { required: true })}
+                                            id="fileInput"
+                                            placeholder="Your Address"
+                                            sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                        />
+                                    </Box>
+                                    <Box sx={{ width: '100%' }}>
+                                        <label htmlFor="fileInput" style={{ fontSize: '13px' }}>Upload Your Resume</label>
+                                        <TextField
+                                            {...register('photo', { required: true })}
+                                            id="fileInput"
+                                            type='file'
+                                            sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                        />
+                                    </Box>
+                                </Box>
+                            </>
+                        }
+                    </>
                 </Box>
                 <Button type="submit" variant="contained" disableRipple sx={{
                     '&:hover': {
