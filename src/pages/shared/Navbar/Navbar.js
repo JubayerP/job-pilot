@@ -21,10 +21,15 @@ import NavMenu from './NavMenu';
 
 const drawerWidth = 240;
 const navItems = [
+  
+  {
+    name: 'Candidates',
+    link: '/candidates'
+  },
   {
     name: 'Dashboard',
-    link: '/dashboard/listjob'
-  }
+    link: '/dashboard'
+  },
 ];
 
 const Navbar = (props) => {

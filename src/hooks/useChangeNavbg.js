@@ -8,23 +8,8 @@ export const useChangeBg = () => {
         if (location.pathname === '/') {
             setColor('transparent');
         }
-        else if (location.pathname === '/jobs/product') {
-            setColor('black');
-        }
-        else if (location.pathname === '/jobs/engineering') {
-            setColor('black');
-        }
-        else if (location.pathname === '/jobs/datascience') {
-            setColor('black');
-        }
-        else if (location.pathname === '/register') {
-            setColor('black');
-        }
-        else if (location.pathname === '/login') {
-            setColor('black');
-        }
         else {
-            setColor('transparent');
+            setColor('black');
         }
     }, [location.pathname]);
 

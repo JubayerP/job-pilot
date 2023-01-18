@@ -7,6 +7,8 @@ import Jobs from "../pages/Jobs/Jobs";
 import Login from "../pages/Login/Login";
 import { Profile } from "../pages/Profile/Profile";
 import Register from "../pages/Register/Register";
+import EmployerRoute from "./EmployerRoute";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -20,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/jobs/:category',
-                element: <Jobs />,
+                element: <PrivateRoute><Jobs /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/joblistings?category=${params.category}`)
             },
             {
@@ -33,17 +35,17 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element: <Profile />
+                element: <PrivateRoute><Profile /></PrivateRoute>
             }
         ]
     },
     {
-        path: '/dashboard/listjob',
-        element: <DashboardLayouts />,
+        path: '/dashboard',
+        element: <PrivateRoute><DashboardLayouts /></PrivateRoute>,
         children: [
             {
                 path: '/dashboard/listjob',
-                element: <ListJob />
+                element: <EmployerRoute><PrivateRoute><ListJob /></PrivateRoute></EmployerRoute>
             }
         ]
     }

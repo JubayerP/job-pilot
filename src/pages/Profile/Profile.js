@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../../context/AuthProvider";
 import { useEmployer } from "../../hooks/useEmployer";
 import { useJobSeeker } from "../../hooks/useJobSeeker";
@@ -15,7 +16,7 @@ export const Profile = () => {
     const [isEmployer] = useEmployer(user?.email)
     const { register, handleSubmit } = useForm()
 
-    const { data: currentUser, isLoading } = useQuery({
+    const { data: currentUser, isLoading, refetch } = useQuery({
         queryKey: ['user', user?.email],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/user/${user?.email}`)
@@ -52,7 +53,8 @@ export const Profile = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            console.log(data)
+                            refetch();
+                            toast.success('Your Profile is Updated.')
                         })
                 })
         }
@@ -131,8 +133,10 @@ export const Profile = () => {
                                     <TextField
                                         {...register('passion', { required: true })}
                                         id="fileInput"
-                                        placeholder="Your Passion e.g. Web Developer"
-                                        sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                        placeholder={`${currentUser?.passion ? '': 'Your Passion e.g. Web Developer'}`}
+                                    sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                    value={currentUser?.passion && currentUser?.passion}
+                                    disabled={currentUser?.passion}
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', gap: '1rem' }}>
@@ -141,8 +145,10 @@ export const Profile = () => {
                                         <TextField
                                             {...register('address', { required: true })}
                                             id="fileInput"
-                                            placeholder="Your Address"
-                                            sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                            placeholder={`${currentUser?.address ? '': 'Address'}`}
+                                        sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                        value={currentUser?.address && currentUser?.address}
+                                        disabled={currentUser?.address}
                                         />
                                     </Box>
                                     <Box sx={{ width: '100%' }}>
@@ -150,7 +156,9 @@ export const Profile = () => {
                                         <TextField
                                             {...register('photo', { required: true })}
                                             id="fileInput"
-                                            type='file'
+                                        type={currentUser?.resume ? 'text' : 'file'}
+                                        value={currentUser?.resume && 'Resume Added'}
+                                        disabled={currentUser?.resume}
                                             sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
                                         />
                                     </Box>
@@ -159,7 +167,16 @@ export const Profile = () => {
                         }
                     </>
                 </Box>
-                <Button type="submit" variant="contained" disableRipple sx={{
+                <Button
+                    disabled={
+                        currentUser?.passion &&
+                        currentUser?.address &&
+                        currentUser?.resume
+                    }
+                    type="submit"
+                    variant="contained"
+                    disableRipple 
+                    sx={{
                     '&:hover': {
                         bgcolor: '#03a84e'
                     },
@@ -168,7 +185,14 @@ export const Profile = () => {
                     px: '2rem',
                     py: '0.6rem'
                 }}>
-                    Update Profile
+                    {currentUser?.passion &&
+                        currentUser?.address &&
+                        currentUser?.resume
+                        ?
+                        'Profile Updated'
+                        :
+                        'Update Profile'
+                    }
                 </Button>
             </form>
         </>
