@@ -10,7 +10,7 @@ const ListJob = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories')
+            const res = await fetch('https://job-pilot-server.vercel.app/categories')
             const data = await res.json()
             return data;
         }
@@ -33,7 +33,7 @@ const ListJob = () => {
                 const { photo, ...jobData } = data;
                 const newJobData = { ...jobData, company_image: imgData.data.display_url, date_posted: new Date().toISOString().slice(0, 10) };
 
-                fetch('http://localhost:5000/joblistings', {
+                fetch('https://job-pilot-server.vercel.app/joblistings', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

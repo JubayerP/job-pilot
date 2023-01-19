@@ -19,7 +19,7 @@ export const Profile = () => {
     const { data: currentUser, isLoading, refetch } = useQuery({
         queryKey: ['user', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/user/${user?.email}`)
+            const res = await fetch(`https://job-pilot-server.vercel.app/user/${user?.email}`)
             const data = await res.json();
             return data;
         }
@@ -44,7 +44,7 @@ export const Profile = () => {
                     const updateUser = { ...newUser, resume, passion: data.passion, address: data.address }
                     console.log(updateUser);
 
-                    fetch(`http://localhost:5000/user?email=${user?.email}`, {
+                    fetch(`https://job-pilot-server.vercel.app/user?email=${user?.email}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json'
@@ -133,10 +133,10 @@ export const Profile = () => {
                                     <TextField
                                         {...register('passion', { required: true })}
                                         id="fileInput"
-                                        placeholder={`${currentUser?.passion ? '': 'Your Passion e.g. Web Developer'}`}
-                                    sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
-                                    value={currentUser?.passion && currentUser?.passion}
-                                    disabled={currentUser?.passion}
+                                        placeholder={`${currentUser?.passion ? '' : 'Your Passion e.g. Web Developer'}`}
+                                        sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                        value={currentUser?.passion && currentUser?.passion}
+                                        disabled={currentUser?.passion}
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', gap: '1rem' }}>
@@ -145,10 +145,10 @@ export const Profile = () => {
                                         <TextField
                                             {...register('address', { required: true })}
                                             id="fileInput"
-                                            placeholder={`${currentUser?.address ? '': 'Address'}`}
-                                        sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
-                                        value={currentUser?.address && currentUser?.address}
-                                        disabled={currentUser?.address}
+                                            placeholder={`${currentUser?.address ? '' : 'Address'}`}
+                                            sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
+                                            value={currentUser?.address && currentUser?.address}
+                                            disabled={currentUser?.address}
                                         />
                                     </Box>
                                     <Box sx={{ width: '100%' }}>
@@ -156,9 +156,9 @@ export const Profile = () => {
                                         <TextField
                                             {...register('photo', { required: true })}
                                             id="fileInput"
-                                        type={currentUser?.resume ? 'text' : 'file'}
-                                        value={currentUser?.resume && 'Resume Added'}
-                                        disabled={currentUser?.resume}
+                                            type={currentUser?.resume ? 'text' : 'file'}
+                                            value={currentUser?.resume && 'Resume Added'}
+                                            disabled={currentUser?.resume}
                                             sx={{ mb: 2, "& fieldset": { border: 'none' }, bgcolor: 'white', width: '100%' }}
                                         />
                                     </Box>
@@ -175,16 +175,16 @@ export const Profile = () => {
                     }
                     type="submit"
                     variant="contained"
-                    disableRipple 
+                    disableRipple
                     sx={{
-                    '&:hover': {
-                        bgcolor: '#03a84e'
-                    },
-                    bgcolor: '#03a84e',
-                    textTransform: 'capitalize',
-                    px: '2rem',
-                    py: '0.6rem'
-                }}>
+                        '&:hover': {
+                            bgcolor: '#03a84e'
+                        },
+                        bgcolor: '#03a84e',
+                        textTransform: 'capitalize',
+                        px: '2rem',
+                        py: '0.6rem'
+                    }}>
                     {currentUser?.passion &&
                         currentUser?.address &&
                         currentUser?.resume

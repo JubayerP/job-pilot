@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 export const useJobSeeker = email => {
     const [isJobSeeker, setIsJobSeeker] = useState(false);
@@ -7,14 +7,14 @@ export const useJobSeeker = email => {
     useEffect(() => {
         setJobSeekerLoading(true)
         if (email) {
-            fetch(`http://localhost:5000/users/jobseeker?email=${email}`)
+            fetch(`https://job-pilot-server.vercel.app/users/jobseeker?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsJobSeeker(data.isJobSeeker)
                     setJobSeekerLoading(false)
-            })
+                })
         }
-    },[email])
+    }, [email])
 
     return [isJobSeeker, jobSeekerLoading]
 }

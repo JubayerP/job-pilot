@@ -32,9 +32,9 @@ const Login = () => {
                 // navigate('/')
 
                 const user = { name: loggedUser?.displayName, email: loggedUser?.email, photo: loggedUser?.photoURL, type: 'employer' }
-                
 
-                fetch(`http://localhost:5000/users?email=${loggedUser?.email}`, {
+
+                fetch(`https://job-pilot-server.vercel.app/users?email=${loggedUser?.email}`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'

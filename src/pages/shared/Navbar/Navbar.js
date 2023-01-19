@@ -16,29 +16,36 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider';
 import { useChangeBg } from '../../../hooks/useChangeNavbg';
+import { useJobSeeker } from '../../../hooks/useJobSeeker';
 import useNavbg from '../../../hooks/useNavbg';
 import NavMenu from './NavMenu';
 
 const drawerWidth = 240;
-const navItems = [
-  
-  {
-    name: 'Candidates',
-    link: '/candidates'
-  },
-  {
-    name: 'Dashboard',
-    link: '/dashboard'
-  },
-];
+
 
 const Navbar = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { user } = React.useContext(AuthContext);
+  // const [isEmployer] = useEmployer(user?.email)
+  const [isJobSeeker] = useJobSeeker(user?.email)
 
   const [active] = useNavbg();
   const [color] = useChangeBg();
+
+  const navItems = [
+
+    {
+      name: 'Candidates',
+      link: '/candidates',
+      employer: isJobSeeker
+    },
+    {
+      name: 'Dashboard',
+      link: '/dashboard'
+    },
+  ];
+
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -52,6 +59,7 @@ const Navbar = (props) => {
       <Divider />
       <List>
         {navItems.map((item) => (
+          user?.uid &&
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <Link to='/dashboard'>{item.name}</Link>
@@ -98,7 +106,7 @@ const Navbar = (props) => {
             </Link>
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-            {navItems.map((item) => (
+            {user?.uid && navItems.map((item) => (
               <Button key={item} sx={{
                 color: '#fff', mr: 2,
                 textTransform: 'capitalize',
@@ -107,7 +115,7 @@ const Navbar = (props) => {
                 }
 
               }} disableRipple variant='text'>
-                <Link to={item.link}>
+                <Link style={{ display: item.employer ? 'none' : 'block' }} to={item.link}>
                   {item.name}
                 </Link>
               </Button>

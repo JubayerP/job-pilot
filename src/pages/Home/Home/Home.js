@@ -13,21 +13,17 @@ const Home = () => {
     const { data: currentUser, isLoading } = useQuery({
         queryKey: ['user', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/user/${user?.email}`)
+            const res = await fetch(`https://job-pilot-server.vercel.app/user/${user?.email}`)
             const data = await res.json();
             return data;
         }
     })
 
-    if(isLoading){
-        return 'Loading.....'
-    }
-
     return (
         <div>
             <Header />
             {
-              isJobSeeker &&  (!currentUser?.passion && !currentUser?.address && !currentUser?.resume) && <AlertDialog />
+                user?.uid && (isJobSeeker && (!currentUser?.passion && !currentUser?.address && !currentUser?.resume) ? <AlertDialog /> : undefined)
             }
             <Category />
         </div>

@@ -2,6 +2,7 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query';
+import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
@@ -14,12 +15,12 @@ const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <Toaster />
-    </QueryClientProvider>
-  </AuthProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <Toaster />
+      </QueryClientProvider>
+    </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
